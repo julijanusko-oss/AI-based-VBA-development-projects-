@@ -1,0 +1,57 @@
+Private Sub UserForm_Initialize()
+    With lstKollegak
+        .Clear
+        .AddItem "Pityi Palkó"
+        .AddItem "Sanyi"
+        .AddItem "Kovács Béla"
+        .AddItem "Nagy Anna"
+        .AddItem "Ludas Matyi"
+    End With
+End Sub
+
+Private Sub UserForm_Activate()
+    Me.Width = Me.Width + 0.1
+    Me.Width = Me.Width - 0.1
+    Me.Repaint
+End Sub
+
+Private Sub cmdCsakKollega_Click()
+    If lstKollegak.ListIndex = -1 Then
+        MsgBox "Előbb válassz egy kollégát a listából!", vbExclamation
+        Exit Sub
+    End If
+    Dim valasztottKollega As String
+    valasztottKollega = lstKollegak.Value
+    Unload Me
+    Module1.ProcessEmail "TS", valasztottKollega
+End Sub
+
+Private Sub cmdMOKollega_Click()
+    If lstKollegak.ListIndex = -1 Then
+        MsgBox "Előbb válassz egy kollégát a listából!", vbExclamation
+        Exit Sub
+    End If
+    Dim valasztottKollega As String
+    valasztottKollega = lstKollegak.Value
+    Unload Me
+    Module1.ProcessEmail "MO_KOLLEGA_CC", valasztottKollega
+End Sub
+
+Private Sub btnMobo_Click()
+    Unload Me
+    Module1.ProcessEmail "MOBO"
+End Sub
+
+Private Sub btnMo_Click()
+    Unload Me
+    Module1.ProcessEmail "MO"
+End Sub
+
+Private Sub btnTel_Click()
+    Unload Me
+    Module1.ProcessEmail "TEL"
+End Sub
+
+Private Sub lstKollegak_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
+    Call cmdCsakKollega_Click
+End Sub
